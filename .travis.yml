@@ -1,8 +1,8 @@
 language: csharp
-solution: OnlineBookingSystem.sln
+solution: "./OnlineBookingSystem.sln"
 install:
-  – nuget restore OnlineBookingSystem.sln
-  – nuget install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
+  – travis_retry nuget restore -source "https://www.nuget.org/api/v2" ./OnlineBookingSystem.sln
+#  – nuget install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
 script:
-  – xbuild /p:Configuration=Release TravisSample.sln
-  – mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./TravisSample.Test/bin/Release/TravisSample.Test.dll
+  – xbuild ./OnlineBookingSystem.sln
+  – mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./OnlineBookingSystem/bin/Release/TravisSample.Test.dll
