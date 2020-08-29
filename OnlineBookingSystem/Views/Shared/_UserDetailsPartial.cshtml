@@ -1,0 +1,40 @@
+﻿@model IEnumerable<OnlineBookingSystem.ViewModel.UserDetailsViewModel>
+<table class="table table-bordred table-striped" style="width:100%">
+    <thead>
+        <tr>
+            <th>
+                Action
+            </th>
+            <th>
+                Full Name
+            </th>
+            <th>
+                User Name
+            </th>
+            <th>
+                Email
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <span id="btnDelete" class="glyphicon glyphicon-trash" onclick="DeleteUser(@item.Id)"></span> &nbsp;&nbsp;
+                    <span id="btnEdit" class="glyphicon glyphicon-pencil" onclick="EditUser(@item.Id)"></span> &nbsp;&nbsp;
+                </td>
+                <td>
+                    @item.FullName
+                </td>
+                <td>
+                    @item.UserName
+                </td>
+                <td>
+                    @item.Email
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>

@@ -1,0 +1,220 @@
+﻿@model OnlineBookingSystem.ViewModel.UserViewModel
+@{
+    ViewBag.Title = "Index";
+}
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+    var _webroot = '@System.Configuration.ConfigurationManager.AppSettings["webpath"].ToString()';
+    $(document).ready(function () {
+        SearchUsersByName();
+        $("#btnSearch").click(function () {
+            SearchUsersByName();
+        });
+        //load times it will get that zero
+        $("#txtUserId").val("0");
+
+        $("#btnSave").click(function () {
+            //validate
+            if (!$("#formUser").valid()) {
+                return;
+            }
+            SaveUserData();
+        });
+    });
+
+    function SearchUsersByName() {
+        var formData = new FormData;
+        //Get data from Form
+        formData.append("NameSearch", $("#txtNameSearch").val());
+        console.log($("#txtNameSearch").val());
+        $.ajax({
+            async: true,
+            type: 'POST',
+            url: _webroot + '/Account/GetAllUsers',
+            contentType: false,
+            processData: false,
+            data: formData,
+            success: function (data) {
+                $("#divLoadUserDetails").html(data);
+            },
+            error: function () {
+                alert('There is some problem to process your request. Please try after sometime.');
+            }
+        });
+    }
+
+    //Save User
+    function SaveUserData() {
+        var formData = new FormData;
+        //Get data from Form
+        formData.append("Id", $("#txtUserId").val());
+        formData.append("RoleId", $("#ddRoleId").val());
+        formData.append("UserName", $("#txtUserName").val());
+        formData.append("PassWord", $("#txtPassWord").val());
+        formData.append("FullName", $("#txtFullName").val());
+        formData.append("Email", $("#txtEmail").val());
+        $.ajax({
+            async: true,
+            type: 'POST',
+            contentType: false,
+            processData: false,
+            data: formData,
+            success: function (data) {
+                    if (data.success === true) {
+                        alert(data.message);
+                        ResetUserInformation();
+                        SearchUsersByName();
+                    }
+
+                },
+            error: function () {
+                    alert('There is some problem to process your request. Please try after sometime.');
+                }
+            });
+    }
+    //Edit User
+    function EditUser(UserId) {
+        $.ajax({
+            async: true,
+            type: 'GET',
+            dataType: 'JSON',
+            contentType: 'application/json; charset=utf-8',
+            data: { UserId: UserId },
+            url: _webroot + '/Account/EditUserDetails',
+            success: function (data) {
+                $("#ddRoleId").val(data.RoleId);
+                $("#txtUserName").val(data.UserName);
+                $("#txtFullName").val(data.FullName);
+                $("#txtPassWord").val('');
+                $("#txtRePassWord").val('');
+                $("#txtEmail").val(data.Email);
+                $("#divAddUser").modal({ show: true });
+                $("#btnSave").text("Update");
+                $("#txtUserId").val(data.Id);
+                },
+            error: function () {
+                    alert('There is some proplem to process your request. Please try after sometime.')
+            }
+        });
+    }
+    //Delete User
+    function DeleteUser(UserId) {
+        //show warning
+        var result = confirm("Are you sure you want to delete?");
+        if (result === false) {
+            return false;
+        }
+        $.ajax({
+            async: true,
+            type: 'GET',
+            dataType: 'JSON',
+            contentType: 'application/json; charset=utf-8',
+            data: { UserId: UserId },
+            url: _webroot + '/Account/DeleteUserDetails',
+            success: function (data) {
+                    if (data.success === true) {
+                        alert(data.message);
+                        SearchUsersByName();
+                    }
+                },
+            error: function () {
+                    alert('There is some proplem to process your request. Please try after sometime.')
+            }
+        });
+    }
+
+    //Reset all infor for User form
+    function ResetUserInformation() {
+        $("#ddRoleId").val(1);
+        $("#txtUserName").val('')
+        $("#txtPassWord").val('');
+        $("#txtFullName").val('');
+        $("#txtRePassWord").val('');
+        $("#txtEmail").val('');
+        $("#btnSave").text("Save")
+        $("#txtUserId").val(0);
+    }
+</script>
+<div>
+    <div style="margin-top: 30px"></div>
+    <h2 style="font-size:25px">CREATE USERS</h2>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#divAddUser">Create New User</button>
+    <div style="margin-top: 20px"></div>
+</div>
+<form id="formUser">
+    <div id="divAddUser" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">User</h4>
+                </div>
+                <div class="modal-body col-md-12">
+                    <div class="container col-md-12">
+                        @Html.HiddenFor(model => model.Id, new { @id = "txtUserId" })
+                        <div class="form-group col-md-6">
+                            @Html.LabelFor(model => model.RoleId)
+                            @Html.DropDownListFor(model => model.RoleId, Model.ListOfRole, new { @class = "form-control", id = "ddRoleId" })
+                        </div>
+                        <div class="form-group col-md-6">
+                            @Html.LabelFor(model => model.UserName)
+                            @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", id = "txtUserName" })
+                            @Html.ValidationMessageFor(model => model.UserName, null, new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="container col-md-12">
+                        <div class="form-group col-md-6">
+                            @Html.LabelFor(model => model.PassWord)
+                            @Html.PasswordFor(model => model.PassWord, new { @class = "form-control", id = "txtPassWord" })
+                            @*@Html.ValidationMessageFor(model => model.PassWord, null, new { @class = "text-danger", id = "vldPassWord" })*@
+                        </div>
+                        <div class="form-group col-md-6">
+                            @Html.LabelFor(model => model.RePassWord)
+                            @Html.PasswordFor(model => model.RePassWord, new { @class = "form-control", id = "txtRePassWord" })
+                            @Html.ValidationMessageFor(model => model.RePassWord, null, new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="container col-md-12">
+                        <div class="form-group col-md-6">
+                            @Html.LabelFor(model => model.FullName)
+                            @Html.TextBoxFor(model => model.FullName, new { @class = "form-control", id = "txtFullName" })
+                            @Html.ValidationMessageFor(model => model.FullName, null, new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group col-md-6">
+                            @Html.LabelFor(model => model.Email)
+                            @Html.TextBoxFor(model => model.Email, new { @class = "form-control", id = "txtEmail" })
+                            @Html.ValidationMessageFor(model => model.Email, null, new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="container col-md-12">
+                        <div class="col-md-12">
+                            <button id="btnSave" type="button" class="btn btn-success">Save</button> &nbsp;
+                            <button id="btnClose" type="button" data-dismiss="modal" class="btn btn-danger">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<form id="formUserSearch">
+    <div class="col-md-12">
+        <div class="row col-md-2">
+            @Html.LabelFor(model => model.NameSearch)
+        </div>
+        <div class="row col-md-4">
+            @Html.TextBoxFor(model => model.NameSearch, new { @class = "form-control", id = "txtNameSearch", })
+        </div>
+        <div class="row col-md-4">
+            <div class="row col-md-4">
+                <button id="btnSearch" type="button" class="btn btn-danger btn-block">Search</button>
+            </div>
+        </div>
+    </div>
+</form>
+<div style="margin-top: 20px"></div>
+<div id="divLoadUserDetails">
+</div>
+
