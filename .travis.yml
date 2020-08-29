@@ -1,8 +1,8 @@
 language: csharp
 solution: "./OnlineBookingSystem.sln"
 install:
-– travis_retry nuget restore ./OnlineBookingSystem.sln
-– nuget install NUnit.Runners -OutputDirectory testrunner
+  – nuget restore ./OnlineBookingSystem.sln
+  – nuget install NUnit.Runners -OutputDirectory testrunner
 script:
-– xbuild /p:Configuration=Release OnlineBookingSystem.sln
-– mono ./testrunner/NUnit.Runners.*/tools/nunit-console.exe ./OBS.Test/bin/Release/OBS.Test.dll
+  – xbuild /p:Configuration=Release OnlineBookingSystem.sln
+  – mono ./testrunner/NUnit.Runners.*/tools/nunit-console.exe ./OBS.Test/bin/Release/OBS.Test.dll
