@@ -15,21 +15,11 @@
           <ScalarProperty Name="StudentsNotAllowed" ColumnName="StudentsNotAllowed" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="RoomNumber" ColumnName="RoomNumber" />
-          <ScalarProperty Name="RoomName" ColumnName="RoomName" />
           <ScalarProperty Name="RoomPrice" ColumnName="RoomPrice" />
-          <ScalarProperty Name="RoomStatusid" ColumnName="RoomStatusid" />
           <ScalarProperty Name="RoomTypeid" ColumnName="RoomTypeid" />
           <ScalarProperty Name="RoomCapacity" ColumnName="RoomCapacity" />
           <ScalarProperty Name="RoomDescription" ColumnName="RoomDescription" />
           <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="RoomStatus">
-      <EntityTypeMapping TypeName="BookingDBModel.RoomStatu">
-        <MappingFragment StoreEntitySet="RoomStatus">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -69,11 +59,11 @@
     <EntitySetMapping Name="Users">
       <EntityTypeMapping TypeName="BookingDBModel.User">
         <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="Email" ColumnName="Email" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="UserName" ColumnName="UserName" />
           <ScalarProperty Name="PassWord" ColumnName="PassWord" />
           <ScalarProperty Name="FullName" ColumnName="FullName" />
-          <ScalarProperty Name="Address" ColumnName="Address" />
           <ScalarProperty Name="RoleId" ColumnName="RoleId" />
           <ScalarProperty Name="IsActive" ColumnName="IsActive" />
         </MappingFragment>

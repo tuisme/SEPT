@@ -13,22 +13,15 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="RoomNumber" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="RoomName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="RoomNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="RoomPrice" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
-    <Property Name="RoomStatusid" Type="Int32" Nullable="false" />
     <Property Name="RoomTypeid" Type="Int32" Nullable="false" />
     <Property Name="RoomCapacity" Type="Int32" Nullable="false" />
     <Property Name="RoomDescription" Type="String" MaxLength="550" FixedLength="false" Unicode="true" />
     <Property Name="IsActive" Type="Boolean" />
     <Property Name="StudentsNotAllowed" Type="Boolean" Nullable="false" />
-  </EntityType>
-  <EntityType Name="RoomStatu">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="RoomType" Relationship="BookingDBModel.fk_Rooms_RoomTypes" FromRole="Room" ToRole="RoomType" />
+    <NavigationProperty Name="RoomUsages" Relationship="BookingDBModel.fk_RoomUsages_Rooms" FromRole="Room" ToRole="RoomUsage" />
   </EntityType>
   <EntityType Name="RoomType">
     <Key>
@@ -36,6 +29,7 @@
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Rooms" Relationship="BookingDBModel.fk_Rooms_RoomTypes" FromRole="RoomType" ToRole="Room" />
   </EntityType>
   <EntityType Name="RoomUsage">
     <Key>
@@ -49,6 +43,9 @@
     <Property Name="NumberOfMembers" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
     <Property Name="BookingDate" Type="DateTime" Nullable="false" Precision="0" />
     <Property Name="BookingHoursID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="BookingHour" Relationship="BookingDBModel.fk_RoomUsages_BookingHours" FromRole="RoomUsage" ToRole="BookingHour" />
+    <NavigationProperty Name="Room" Relationship="BookingDBModel.fk_RoomUsages_Rooms" FromRole="RoomUsage" ToRole="Room" />
+    <NavigationProperty Name="User" Relationship="BookingDBModel.fk_RoomUsages_Users" FromRole="RoomUsage" ToRole="User" />
   </EntityType>
   <EntityType Name="sysdiagram">
     <Key>
@@ -68,15 +65,15 @@
     <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="PassWord" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="Address" Type="String" MaxLength="550" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="RoleId" Type="Int32" Nullable="false" />
     <Property Name="IsActive" Type="Boolean" />
     <NavigationProperty Name="Role" Relationship="BookingDBModel.fk_User_Role" FromRole="User" ToRole="Role" />
+    <NavigationProperty Name="RoomUsages" Relationship="BookingDBModel.fk_RoomUsages_Users" FromRole="User" ToRole="RoomUsage" />
+    <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
   </EntityType>
   <EntityContainer Name="BookingDBEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Roles" EntityType="Self.Role" />
     <EntitySet Name="Rooms" EntityType="Self.Room" />
-    <EntitySet Name="RoomStatus" EntityType="Self.RoomStatu" />
     <EntitySet Name="RoomTypes" EntityType="Self.RoomType" />
     <EntitySet Name="RoomUsages" EntityType="Self.RoomUsage" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
@@ -86,6 +83,22 @@
       <End Role="Role" EntitySet="Roles" />
       <End Role="User" EntitySet="Users" />
     </AssociationSet>
+    <AssociationSet Name="fk_RoomUsages_BookingHours" Association="BookingDBModel.fk_RoomUsages_BookingHours">
+      <End Role="BookingHour" EntitySet="BookingHours" />
+      <End Role="RoomUsage" EntitySet="RoomUsages" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Rooms_RoomTypes" Association="BookingDBModel.fk_Rooms_RoomTypes">
+      <End Role="RoomType" EntitySet="RoomTypes" />
+      <End Role="Room" EntitySet="Rooms" />
+    </AssociationSet>
+    <AssociationSet Name="fk_RoomUsages_Rooms" Association="BookingDBModel.fk_RoomUsages_Rooms">
+      <End Role="Room" EntitySet="Rooms" />
+      <End Role="RoomUsage" EntitySet="RoomUsages" />
+    </AssociationSet>
+    <AssociationSet Name="fk_RoomUsages_Users" Association="BookingDBModel.fk_RoomUsages_Users">
+      <End Role="User" EntitySet="Users" />
+      <End Role="RoomUsage" EntitySet="RoomUsages" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="BookingHour">
     <Key>
@@ -93,6 +106,7 @@
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" />
     <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="RoomUsages" Relationship="BookingDBModel.fk_RoomUsages_BookingHours" FromRole="BookingHour" ToRole="RoomUsage" />
   </EntityType>
   <Association Name="fk_User_Role">
     <End Type="BookingDBModel.Role" Role="Role" Multiplicity="1" />
@@ -103,6 +117,54 @@
       </Principal>
       <Dependent Role="User">
         <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_RoomUsages_BookingHours">
+    <End Type="BookingDBModel.BookingHour" Role="BookingHour" Multiplicity="1" />
+    <End Type="BookingDBModel.RoomUsage" Role="RoomUsage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BookingHour">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RoomUsage">
+        <PropertyRef Name="BookingHoursID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Rooms_RoomTypes">
+    <End Type="BookingDBModel.RoomType" Role="RoomType" Multiplicity="1" />
+    <End Type="BookingDBModel.Room" Role="Room" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RoomType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Room">
+        <PropertyRef Name="RoomTypeid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_RoomUsages_Rooms">
+    <End Type="BookingDBModel.Room" Role="Room" Multiplicity="1" />
+    <End Type="BookingDBModel.RoomUsage" Role="RoomUsage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Room">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RoomUsage">
+        <PropertyRef Name="RoomId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_RoomUsages_Users">
+    <End Type="BookingDBModel.User" Role="User" Multiplicity="1" />
+    <End Type="BookingDBModel.RoomUsage" Role="RoomUsage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="RoomUsage">
+        <PropertyRef Name="UserID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
