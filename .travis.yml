@@ -5,4 +5,4 @@ install:
   - nuget install NUnit.Runners -OutputDirectory testrunner
 script:
   – xbuild /p:Configuration=Release OnlineBookingSystem.sln
-  – mono ./testrunner/NUnit.ConsoleRunner.*/tools/nunit3-console.exe ./OBS.Test/bin/Release/OBS.Test.dll
+  
