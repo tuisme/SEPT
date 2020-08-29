@@ -4,20 +4,6 @@
     <list default="true" id="e1490e44-d35f-4e6e-9ab3-71cd6b34f5f1" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.travis.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.travis.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBS.Test/obj/Debug/OBS.Test.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/OBS.Test/obj/Debug/OBS.Test.csproj.CoreCompileInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBS.Test/obj/Debug/OBS.Test.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/OBS.Test/obj/Debug/OBS.Test.csproj.FileListAbsolute.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBS.Test/obj/Debug/OBS.Test.csprojAssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/OBS.Test/obj/Debug/OBS.Test.csprojAssemblyReference.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBS.Test/obj/Debug/OBS.Test.dll" beforeDir="false" afterPath="$PROJECT_DIR$/OBS.Test/obj/Debug/OBS.Test.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OBS.Test/obj/Debug/OBS.Test.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/OBS.Test/obj/Debug/OBS.Test.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OnlineBookingSystem/OnlineBookingSystem.csproj.user" beforeDir="false" afterPath="$PROJECT_DIR$/OnlineBookingSystem/OnlineBookingSystem.csproj.user" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OnlineBookingSystem/obj/Debug/OnlineBookingSystem.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/OnlineBookingSystem/obj/Debug/OnlineBookingSystem.csproj.CoreCompileInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OnlineBookingSystem/obj/Debug/OnlineBookingSystem.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/OnlineBookingSystem/obj/Debug/OnlineBookingSystem.csproj.FileListAbsolute.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OnlineBookingSystem/obj/Debug/OnlineBookingSystem.csprojAssemblyReference.cache" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/OnlineBookingSystem/obj/Debug/OnlineBookingSystem.dll" beforeDir="false" afterPath="$PROJECT_DIR$/OnlineBookingSystem/obj/Debug/OnlineBookingSystem.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OnlineBookingSystem/obj/Debug/OnlineBookingSystem.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/OnlineBookingSystem/obj/Debug/OnlineBookingSystem.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OnlineBookingSystem/obj/Debug/edmxResourcesToEmbed/Models/Model1.csdl" beforeDir="false" afterPath="$PROJECT_DIR$/OnlineBookingSystem/obj/Debug/edmxResourcesToEmbed/Models/Model1.csdl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OnlineBookingSystem/obj/Debug/edmxResourcesToEmbed/Models/Model1.msl" beforeDir="false" afterPath="$PROJECT_DIR$/OnlineBookingSystem/obj/Debug/edmxResourcesToEmbed/Models/Model1.msl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OnlineBookingSystem/obj/Debug/edmxResourcesToEmbed/Models/Model1.ssdl" beforeDir="false" afterPath="$PROJECT_DIR$/OnlineBookingSystem/obj/Debug/edmxResourcesToEmbed/Models/Model1.ssdl" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,7 +35,7 @@
       <option name="presentableId" value="Default" />
       <updated>1598691192721</updated>
       <workItem from="1598691193771" duration="8233000" />
-      <workItem from="1598701929276" duration="116000" />
+      <workItem from="1598701929276" duration="1350000" />
     </task>
     <servers />
   </component>
